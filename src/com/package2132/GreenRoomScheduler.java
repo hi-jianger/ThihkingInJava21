@@ -1,7 +1,10 @@
-package com.package2131;
+package com.package2132;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
-import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.DelayQueue;
+import java.util.concurrent.Delayed;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -31,7 +34,8 @@ public class GreenRoomScheduler {
         this.time = time;
     }
 
-    ScheduledThreadPoolExecutor poolExecutor = new ScheduledThreadPoolExecutor(10);
+//    ScheduledThreadPoolExecutor poolExecutor = new ScheduledThreadPoolExecutor(10);
+    DelayQueue delayQueue=new DelayQueue();
 
     /**
      * 执行一次
@@ -39,9 +43,9 @@ public class GreenRoomScheduler {
      * @param event
      * @param delay
      */
-    public void scheduler(Runnable event, long delay) {
-        poolExecutor.schedule(event, delay, TimeUnit.MILLISECONDS);
-
+    public void scheduler(Delayed event) {
+//        poolExecutor.schedule(event, delay, TimeUnit.MILLISECONDS);
+           delayQueue.put(event);
     }
 
     /**
@@ -51,17 +55,27 @@ public class GreenRoomScheduler {
      * @param initialDelay
      * @param delay
      */
-    public void repeat(Runnable event, long initialDelay, long delay) {
-        poolExecutor.scheduleAtFixedRate(event, initialDelay, delay, TimeUnit.MILLISECONDS);
-    }
+//    public void repeat(Runnable event, long initialDelay, long delay) {
+//        poolExecutor.scheduleAtFixedRate(event, initialDelay, delay, TimeUnit.MILLISECONDS);
+//    }
 
-    class LightOn implements Runnable {
+    class LightOn implements Runnable,Delayed {
 
 
         @Override
         public void run() {
             System.out.println("开灯");
             light = true;
+        }
+
+        @Override
+        public long getDelay(@NotNull TimeUnit unit) {
+            return unit.convert(10000,TimeUnit.MILLISECONDS);
+        }
+
+        @Override
+        public int compareTo(@NotNull Delayed o) {
+            return 0;
         }
     }
 
@@ -122,21 +136,21 @@ public class GreenRoomScheduler {
         }
     }
 
-    class Terminate implements Runnable {
-        /**
-         * 匿名内部类的lambda表达式
-         */
-        @Override
-        public void run() {
-            System.out.println("停止");
-            poolExecutor.shutdownNow();
-            new Thread(() ->
-                    data.forEach(d ->
-                            System.out.println(d)
-                    )
-            ).start();
-        }
-    }
+//    class Terminate implements Runnable {
+//        /**
+//         * 匿名内部类的lambda表达式
+//         */
+//        @Override
+//        public void run() {
+//            System.out.println("停止");
+//            poolExecutor.shutdownNow();
+//            new Thread(() ->
+//                    data.forEach(d ->
+//                            System.out.println(d)
+//                    )
+//            ).start();
+//        }
+//    }
 
     static class DataPoint {
         final Calendar time;
@@ -191,11 +205,11 @@ public class GreenRoomScheduler {
 
     public static void main(String[] args) {
         GreenRoomScheduler greenRoomScheduler = new GreenRoomScheduler();
-        greenRoomScheduler.scheduler(greenRoomScheduler.new Terminate(), 5000);
-        greenRoomScheduler.repeat(greenRoomScheduler.new LightOff(), 0, 200);
-        greenRoomScheduler.repeat(greenRoomScheduler.new BellOn(), 0, 1000);
-        greenRoomScheduler.repeat(greenRoomScheduler.new LightOn(), 0, 1500);
-        greenRoomScheduler.repeat(greenRoomScheduler.new CollectData(), 500, 500);
+        greenRoomScheduler.scheduler(greenRoomScheduler.new LightOn());
+//        greenRoomScheduler.repeat(greenRoomScheduler.new LightOff(), 0, 200);
+//        greenRoomScheduler.repeat(greenRoomScheduler.new BellOn(), 0, 1000);
+//        greenRoomScheduler.repeat(greenRoomScheduler.new LightOn(), 0, 1500);
+//        greenRoomScheduler.repeat(greenRoomScheduler.new CollectData(), 500, 500);
     }
 
 
