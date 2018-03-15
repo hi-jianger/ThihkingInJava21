@@ -247,7 +247,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="41" />
+    <option name="x" value="519" />
     <option name="y" value="23" />
     <option name="width" value="1400" />
     <option name="height" value="797" />
@@ -561,7 +561,7 @@
       <workItem from="1519647048839" duration="21221000" />
       <workItem from="1519959034891" duration="4232000" />
       <workItem from="1520132411999" duration="21214000" />
-      <workItem from="1521083956087" duration="10382000" />
+      <workItem from="1521083956087" duration="10575000" />
     </task>
     <task id="LOCAL-00001" summary="第一次提交">
       <created>1521098260034</created>
@@ -574,10 +574,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="96915000" />
+    <option name="totallyTimeSpent" value="97108000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="41" y="23" width="1400" height="797" extended-state="0" />
+    <frame x="519" y="23" width="1400" height="797" extended-state="0" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905984" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
