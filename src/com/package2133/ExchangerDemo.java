@@ -1,6 +1,9 @@
 package com.package2133;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Exchanger;
 import java.util.concurrent.ExecutorService;
@@ -32,5 +35,7 @@ public class ExchangerDemo {
         executorService.execute(new ExchangerProducer<Fat>( new BasicGenerator<>(),xc,products));
 
         executorService.execute(new ExchangeConsumer<>(xc,consumerList));
+
+//        Map<String,Object> map=new HashMap<String,Object>();
     }
 }
